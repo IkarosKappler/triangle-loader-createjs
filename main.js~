@@ -1,0 +1,57 @@
+/**
+ * Inspiration:
+ *   http://jsfiddle.net/sebastian_derossi/PYxu7/
+ *
+ * @author  Ikaros Kappler
+ * @date    2016-02-26
+ * @version 1.0.0
+ **/
+
+(function($) {
+
+    $( document ).ready( function() {
+
+	function onTriangleMouseOver( event ) {
+	    console.debug( "[mouse over]" );
+	    //console.debug( "Event: " + event + ", hIndex=" + event.target.hIndex + ", vIndex=" + event.target.vIndex );
+	    event.target.color = "#"+((1<<24)*Math.random()|0).toString(16);
+	    //event.target.graphics.clear().beginFill(randomColor).endFill();
+	    IKRS.Regular2DTriangulation.fillTriangle( event.target );
+	}
+
+	function onTriangleInit( triangle ) {
+	    // Valid event listener names are
+	    // - click
+	    // - mousedown
+	    // - dblclick
+	    // - pressmove
+	    // - pressup
+	    // - mouseover / mouseout
+	    // - rollover / rollout
+	    triangle.addEventListener( "mouseover", onTriangleMouseOver );
+	}
+	
+	// init ...
+	this.stage = new createjs.Stage( "triangleCanvas" );
+	//createjs.Touch.enable( this.stage );
+	this.stage.enableMouseOver( 10 );  // how many times per second (default=20)
+	window.triangulation = new IKRS.Regular2DTriangulation( { stage          : this.stage,
+								  size           : 32,
+								  width          : 800,
+								  height         : 600,
+								  origin         : { x : 400, y : 300 },
+								  up             : false,
+								  onTriangleInit : onTriangleInit
+								} );
+	//createjs.Ticker.addListener(this.stage);
+
+	var _self = this;
+	function tick() {
+	    //console.debug( "tick" );
+	    _self.stage.update();
+	}
+	createjs.Ticker.addEventListener('tick', tick);
+
+    } );
+
+})(jQuery);

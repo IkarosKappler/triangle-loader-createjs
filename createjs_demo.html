@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script>      
+      function init() {
+        var stage = new createjs.Stage("demoCanvas");
+        var circle = new createjs.Shape();
+        circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
+        circle.x = 100;
+        circle.y = 100;
+        stage.addChild(circle);
+
+      var tri = new createjs.Shape();
+      tri.graphics.beginFill("red").
+      moveTo( 100, 100 ).
+      lineTo( 150, 200 ).
+      lineTo( 50,  200 ).
+      lineTo( 100, 100 );
+      stage.addChild(tri );
+      
+        stage.update();
+      }
+    </script>
+  </head>
+  <body onload="init();">
+    <canvas id="demoCanvas" width="500" height="200"></canvas>
+  </body>
+</html>
